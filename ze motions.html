@@ -1,0 +1,1098 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ze Motions</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0047AB 0%, #1E90FF 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Animated background circles */
+        .bg-circle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.05);
+            animation: float 20s infinite ease-in-out;
+        }
+
+        .circle1 {
+            width: 300px;
+            height: 300px;
+            top: -150px;
+            left: -150px;
+            animation-delay: 0s;
+        }
+
+        .circle2 {
+            width: 200px;
+            height: 200px;
+            bottom: -100px;
+            right: -100px;
+            animation-delay: 5s;
+        }
+
+        .circle3 {
+            width: 150px;
+            height: 150px;
+            top: 50%;
+            right: 10%;
+            animation-delay: 10s;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) scale(1);
+            }
+            50% {
+                transform: translateY(-50px) scale(1.1);
+            }
+        }
+
+        .container {
+            text-align: center;
+            z-index: 10;
+            padding: 20px;
+            max-width: 900px;
+            width: 90%;
+        }
+
+        .page {
+            display: none;
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .logo {
+            background: white;
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 40px rgba(255, 255, 255, 0.3);
+            animation: pulse 3s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow: 0 10px 40px rgba(255, 255, 255, 0.3);
+            }
+            50% {
+                transform: scale(1.05);
+                box-shadow: 0 15px 50px rgba(255, 255, 255, 0.5);
+            }
+        }
+
+        .logo-text {
+            font-size: 32px;
+            font-weight: bold;
+            background: linear-gradient(135deg, #0047AB, #1E90FF);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            color: white;
+            margin-bottom: 20px;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            animation: fadeInDown 1s ease-out;
+            font-family: Arial, sans-serif;
+            letter-spacing: -2px;
+            text-transform: lowercase;
+        }
+        
+        h1 .dot {
+            display: inline-block;
+            position: relative;
+        }
+        
+        h1 .dot::after {
+            content: '';
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background: white;
+            border-radius: 50%;
+            top: 8px;
+            right: -8px;
+        }
+        
+        h1 .people {
+            display: inline-block;
+            position: relative;
+            margin-left: 15px;
+        }
+        
+        h1 .people::before,
+        h1 .people::after {
+            content: '';
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+        }
+        
+        h1 .people::before {
+            width: 28px;
+            height: 28px;
+            top: -35px;
+            right: 28px;
+        }
+        
+        h1 .people::after {
+            width: 28px;
+            height: 28px;
+            top: -35px;
+            right: 0;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .welcome-message {
+            font-size: 1.5rem;
+            color: rgba(255, 255, 255, 0.95);
+            margin-bottom: 40px;
+            animation: fadeIn 1.5s ease-out;
+        }
+
+        .language-selector {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeInUp 2s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .lang-btn, .menu-btn {
+            background: white;
+            border: none;
+            padding: 20px 50px;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #0047AB;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .lang-btn::before, .menu-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(30, 144, 255, 0.2);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .lang-btn:hover::before, .menu-btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .lang-btn:hover, .menu-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .lang-btn:active, .menu-btn:active {
+            transform: translateY(-2px);
+        }
+
+        .lang-btn span, .menu-btn span {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Menu page styles */
+        .menu-container {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            margin-top: 20px;
+        }
+
+        .back-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid white;
+            color: white;
+            padding: 12px 30px;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 20px;
+            box-shadow: 0 3px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .back-btn:hover {
+            background: white;
+            color: #0047AB;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .menu-btn {
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 25px 40px;
+            font-size: 1.4rem;
+        }
+
+        .arabic {
+            direction: rtl;
+        }
+
+        .arabic .menu-btn {
+            font-family: 'Cairo', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        /* Contact page styles */
+        .contact-container {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .contact-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            background: white;
+            border: none;
+            padding: 25px 40px;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #0047AB;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto;
+            text-decoration: none;
+        }
+
+        .contact-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .contact-btn svg {
+            width: 32px;
+            height: 32px;
+        }
+
+        .contact-btn.instagram:hover {
+            background: linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%);
+            color: white;
+        }
+
+        .contact-btn.gmail:hover {
+            background: #EA4335;
+            color: white;
+        }
+
+        .contact-btn.whatsapp:hover {
+            background: #25D366;
+            color: white;
+        }
+
+        /* About page styles */
+        .about-container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 40px;
+            margin-top: 30px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            text-align: left;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, #0047AB, #1E90FF);
+        }
+
+        .about-title {
+            font-size: 2.2rem;
+            color: #0047AB;
+            margin-bottom: 25px;
+            text-align: center;
+            font-weight: 700;
+        }
+
+        .about-content {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: #333;
+            margin-bottom: 25px;
+        }
+
+        .about-highlight {
+            color: #0047AB;
+            font-weight: 600;
+        }
+
+        .about-goal {
+            background: linear-gradient(135deg, #0047AB, #1E90FF);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin-top: 20px;
+            font-size: 1.3rem;
+            font-weight: 600;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 71, 171, 0.3);
+        }
+
+        .skill-icons {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin: 25px 0;
+        }
+
+        .skill-icon {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .skill-icon svg {
+            width: 50px;
+            height: 50px;
+            fill: #0047AB;
+        }
+
+        .skill-name {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #0047AB;
+        }
+
+        /* Help page styles */
+        .help-container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 40px;
+            margin-top: 30px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            text-align: left;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .help-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, #FF6B6B, #FFA500);
+        }
+
+        .help-title {
+            font-size: 2.2rem;
+            color: #FF6B6B;
+            margin-bottom: 25px;
+            text-align: center;
+            font-weight: 700;
+        }
+
+        .help-content {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: #333;
+            margin-bottom: 25px;
+        }
+
+        .help-highlight {
+            color: #FF6B6B;
+            font-weight: 600;
+        }
+
+        .help-section {
+            background: rgba(255, 107, 107, 0.1);
+            border-left: 4px solid #FF6B6B;
+            padding: 20px;
+            border-radius: 0 10px 10px 0;
+            margin: 25px 0;
+        }
+
+        .help-section.arabic {
+            border-left: none;
+            border-right: 4px solid #FF6B6B;
+            border-radius: 10px 0 0 10px;
+        }
+
+        .help-goal {
+            background: linear-gradient(135deg, #FF6B6B, #FFA500);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin-top: 20px;
+            font-size: 1.3rem;
+            font-weight: 600;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
+        }
+
+        .help-icons {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin: 25px 0;
+        }
+
+        .help-icon {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .help-icon svg {
+            width: 50px;
+            height: 50px;
+            fill: #FF6B6B;
+        }
+
+        .help-name {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #FF6B6B;
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            .welcome-message {
+                font-size: 1.2rem;
+            }
+
+            .lang-btn, .menu-btn {
+                padding: 15px 40px;
+                font-size: 1.1rem;
+            }
+
+            .logo {
+                width: 100px;
+                height: 100px;
+            }
+
+            .logo-text {
+                font-size: 28px;
+            }
+
+            .about-container, .help-container {
+                padding: 25px;
+            }
+
+            .about-title, .help-title {
+                font-size: 1.8rem;
+            }
+
+            .about-content, .help-content {
+                font-size: 1.1rem;
+            }
+
+            .skill-icons, .help-icons {
+                gap: 20px;
+            }
+
+            .skill-icon svg, .help-icon svg {
+                width: 40px;
+                height: 40px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            .welcome-message {
+                font-size: 1rem;
+                margin-bottom: 30px;
+            }
+
+            .lang-btn, .menu-btn {
+                padding: 12px 35px;
+                font-size: 1rem;
+                width: 100%;
+                max-width: 250px;
+            }
+
+            .language-selector {
+                gap: 15px;
+            }
+
+            .menu-container {
+                gap: 20px;
+            }
+
+            .about-container, .help-container {
+                padding: 20px;
+            }
+
+            .about-title, .help-title {
+                font-size: 1.6rem;
+            }
+
+            .about-content, .help-content {
+                font-size: 1rem;
+            }
+
+            .skill-icons, .help-icons {
+                flex-wrap: wrap;
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-circle circle1"></div>
+    <div class="bg-circle circle2"></div>
+    <div class="bg-circle circle3"></div>
+
+    <!-- Welcome Page -->
+    <div id="welcomePage" class="container page active">
+        <div class="logo">
+            <div class="logo-text">ZM</div>
+        </div>
+        
+        <h1>ze mot<span class="dot">i</span><span class="people">o</span>ns</h1>
+        
+        <p class="welcome-message">Welcome! We're glad to have you here</p>
+        
+        <div class="language-selector">
+            <button class="lang-btn" onclick="selectLanguage('english')">
+                <span>English</span>
+            </button>
+            <button class="lang-btn" onclick="selectLanguage('arabic')">
+                <span>العربية</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- English Menu Page -->
+    <div id="englishMenu" class="container page">
+        <div class="logo">
+            <div class="logo-text">ZM</div>
+        </div>
+        
+        <h1>ze mot<span class="dot">i</span><span class="people">o</span>ns</h1>
+        
+        <button class="back-btn" onclick="goBack()">
+            <span>← Back</span>
+        </button>
+        
+        <div class="menu-container">
+            <button class="menu-btn" onclick="showAbout('english')">
+                <span>About Ze</span>
+            </button>
+            <button class="menu-btn" onclick="showHelp('english')">
+                <span>How Can I Help You</span>
+            </button>
+            <button class="menu-btn" onclick="showContact('english')">
+                <span>Contact Me</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Arabic Menu Page -->
+    <div id="arabicMenu" class="container page arabic">
+        <div class="logo">
+            <div class="logo-text">ZM</div>
+        </div>
+        
+        <h1>ze mot<span class="dot">i</span><span class="people">o</span>ns</h1>
+        
+        <button class="back-btn" onclick="goBack()">
+            <span>رجوع ←</span>
+        </button>
+        
+        <div class="menu-container">
+            <button class="menu-btn" onclick="showAbout('arabic')">
+                <span>عن زي</span>
+            </button>
+            <button class="menu-btn" onclick="showHelp('arabic')">
+                <span>كيف يمكنني مساعدتك</span>
+            </button>
+            <button class="menu-btn" onclick="showContact('arabic')">
+                <span>تواصل معي</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- English About Page -->
+    <div id="englishAbout" class="container page">
+        <div class="logo">
+            <div class="logo-text">ZM</div>
+        </div>
+        
+        <h1>ze mot<span class="dot">i</span><span class="people">o</span>ns</h1>
+        
+        <button class="back-btn" onclick="backToMenu()">
+            <span>← Back</span>
+        </button>
+        
+        <div class="about-container">
+            <h2 class="about-title">Welcome to <span class="about-highlight">Ze Motions</span> ✨</h2>
+            
+            <div class="skill-icons">
+                <div class="skill-icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M21,3H3C1.9,3,1,3.9,1,5v14c0,1.1,0.9,2,2,2h18c1.1,0,2-0.9,2-2V5C23,3.9,22.1,3,21,3z M21,19H3V5h18V19z M9,11 c0,1.66-1.34,3-3,3s-3-1.34-3-3s1.34-3,3-3S9,9.34,9,11z M16,6.5v9l6-4.5L16,6.5z"/>
+                    </svg>
+                    <span class="skill-name">Video Editing</span>
+                </div>
+                <div class="skill-icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M19,3H5C3.9,3,3,3.9,3,5v14c0,1.1,0.9,2,2,2h14c1.1,0,2-0.9,2-2V5C21,3.9,20.1,3,19,3z M19,19H5V5h14V19z M12,6 c-3.31,0-6,2.69-6,6s2.69,6,6,6s6-2.69,6-6S15.31,6,12,6z M12,16c-2.21,0-4-1.79-4-4s1.79-4,4-4s4,1.79,4,4S14.21,16,12,16z"/>
+                    </svg>
+                    <span class="skill-name">Graphic Design</span>
+                </div>
+                <div class="skill-icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M12,3c-4.97,0-9,4.03-9,9s4.03,9,9,9s9-4.03,9-9S16.97,3,12,3z M12,19c-3.86,0-7-3.14-7-7s3.14-7,7-7s7,3.14,7,7 S15.86,19,12,19z M12.5,7v6l5.25,3.15l0.75-1.23l-4.5-2.67V7H12.5z"/>
+                    </svg>
+                    <span class="skill-name">Audio Enhancement</span>
+                </div>
+            </div>
+            
+            <p class="about-content">
+                I'm <span class="about-highlight">Ze</span>, a professional video editor passionate about turning ideas into impactful visuals.
+            </p>
+            
+            <p class="about-content">
+                I craft edits with creative touches, making sure the sound is clear and powerful, and the visuals are engaging and professional.
+            </p>
+            
+            <p class="about-content">
+                I'm also a graphic designer, combining visuals and sound to deliver content that communicates your message effectively.
+            </p>
+            
+            <div class="about-goal">
+                My goal is simple: to make your work look better, reach people easier, and leave a lasting impression.
+            </div>
+        </div>
+    </div>
+
+    <!-- Arabic About Page -->
+    <div id="arabicAbout" class="container page arabic">
+        <div class="logo">
+            <div class="logo-text">ZM</div>
+        </div>
+        
+        <h1>ze mot<span class="dot">i</span><span class="people">o</span>ns</h1>
+        
+        <button class="back-btn" onclick="backToMenu()">
+            <span>رجوع ←</span>
+        </button>
+        
+        <div class="about-container">
+            <h2 class="about-title">مرحباً بك في <span class="about-highlight">Ze Motions</span> ✨</h2>
+            
+            <div class="skill-icons">
+                <div class="skill-icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M21,3H3C1.9,3,1,3.9,1,5v14c0,1.1,0.9,2,2,2h18c1.1,0,2-0.9,2-2V5C23,3.9,22.1,3,21,3z M21,19H3V5h18V19z M9,11 c0,1.66-1.34,3-3,3s-3-1.34-3-3s1.34-3,3-3S9,9.34,9,11z M16,6.5v9l6-4.5L16,6.5z"/>
+                    </svg>
+                    <span class="skill-name">مونتاج الفيديو</span>
+                </div>
+                <div class="skill-icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M19,3H5C3.9,3,3,3.9,3,5v14c0,1.1,0.9,2,2,2h14c1.1,0,2-0.9,2-2V5C21,3.9,20.1,3,19,3z M19,19H5V5h14V19z M12,6 c-3.31,0-6,2.69-6,6s2.69,6,6,6s6-2.69,6-6S15.31,6,12,6z M12,16c-2.21,0-4-1.79-4-4s1.79-4,4-4s4,1.79,4,4S14.21,16,12,16z"/>
+                    </svg>
+                    <span class="skill-name">التصميم الجرافيكي</span>
+                </div>
+                <div class="skill-icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M12,3c-4.97,0-9,4.03-9,9s4.03,9,9,9s9-4.03,9-9S16.97,3,12,3z M12,19c-3.86,0-7-3.14-7-7s3.14-7,7-7s7,3.14,7,7 S15.86,19,12,19z M12.5,7v6l5.25,3.15l0.75-1.23l-4.5-2.67V7H12.5z"/>
+                    </svg>
+                    <span class="skill-name">تحسين الصوت</span>
+                </div>
+            </div>
+            
+            <p class="about-content">
+                أنا <span class="about-highlight">زي</span>، محرر فيديوهات محترف أعشق تحويل الأفكار إلى لقطات مؤثرة.
+            </p>
+            
+            <p class="about-content">
+                أعمل على المونتاج بلمسة إبداعية تضمن أن الصوت واضح وقوي، والصورة جاذبة واحترافية.
+            </p>
+            
+            <p class="about-content">
+                إضافةً لذلك فأنا مصمم جرافيك، أدمج بين قوة الصورة والصوت لصناعة محتوى يوصل رسالتك بأفضل طريقة.
+            </p>
+            
+            <div class="about-goal">
+                هدفي بسيط: أن أجعل عملك يبدو أجمل، ويصل للناس بسهولة، ويترك أثر لا يُنسى.
+            </div>
+        </div>
+    </div>
+
+    <!-- English Help Page -->
+    <div id="englishHelp" class="container page">
+        <div class="logo">
+            <div class="logo-text">ZM</div>
+        </div>
+        
+        <h1>ze mot<span class="dot">i</span><span class="people">o</span>ns</h1>
+        
+        <button class="back-btn" onclick="backToMenu()">
+            <span>← Back</span>
+        </button>
+        
+        <div class="help-container">
+            <h2 class="help-title">How Can I Help You? 🎬✨</h2>
+            
+            <div class="help-icons">
+                <div class="help-icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20M12,7A5,5 0 0,0 7,12A5,5 0 0,0 12,17A5,5 0 0,0 17,12A5,5 0 0,0 12,7Z"/>
+                    </svg>
+                    <span class="help-name">Transformation</span>
+                </div>
+                <div class="help-icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M12,3L1,9L12,15L21,10.09V17H23V9M5,13.18V17.18C5,17.18 8,16 8,17C8,18 5,18 5,18V21H19V17.18L12,21L5,17.18Z"/>
+                    </svg>
+                    <span class="help-name">Engagement</span>
+                </div>
+                <div class="help-icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M12,15.5A3.5,3.5 0 0,1 8.5,12A3.5,3.5 0 0,1 12,8.5A3.5,3.5 0 0,1 15.5,12A3.5,3.5 0 0,1 12,15.5M19.43,12.97C19.47,12.65 19.5,12.33 19.5,12C19.5,11.67 19.47,11.34 19.43,11L21.54,9.37C21.73,9.22 21.78,8.95 21.66,8.73L19.66,5.27C19.54,5.05 19.27,4.96 19.05,5.05L16.56,6.05C16.04,5.66 15.5,5.32 14.87,5.07L14.5,2.42C14.46,2.18 14.25,2 14,2H10C9.75,2 9.54,2.18 9.5,2.42L9.13,5.07C8.5,5.32 7.96,5.66 7.44,6.05L4.95,5.05C4.73,4.96 4.46,5.05 4.34,5.27L2.34,8.73C2.22,8.95 2.27,9.22 2.46,9.37L4.57,11C4.53,11.34 4.5,11.67 4.5,12C4.5,12.33 4.53,12.65 4.57,12.97L2.46,14.63C2.27,14.78 2.22,15.05 2.34,15.27L4.34,18.73C4.46,18.95 4.73,19.03 4.95,18.95L7.44,17.94C7.96,18.34 8.5,18.68 9.13,18.93L9.5,21.58C9.54,21.82 9.75,22 10,22H14C14.25,22 14.46,21.82 14.5,21.58L14.87,18.93C15.5,18.68 16.04,18.34 16.56,17.94L19.05,18.95C19.27,19.03 19.54,18.95 19.66,18.73L21.66,15.27C21.78,15.05 21.73,14.78 21.54,14.63L19.43,12.97Z"/>
+                    </svg>
+                    <span class="help-name">Connection</span>
+                </div>
+            </div>
+            
+            <p class="help-content">
+                Your content deserves to shine.
+            </p>
+            
+            <div class="help-section">
+                <p class="help-content">
+                    If your videos feel plain or boring, I'll transform them into vibrant stories that grab attention from the very first seconds.
+                </p>
+            </div>
+            
+            <p class="help-content">
+                I add the right music and sound design to make viewers feel connected and enjoy your content until the very end.
+            </p>
+            
+            <div class="help-section">
+                <p class="help-content">
+                    Whether you're a content creator, a business owner, or a brand, my goal is to make your videos more engaging, more shareable, and something your audience will fall in love with.
+                </p>
+            </div>
+            
+            <div class="help-goal">
+                With every edit, I make sure your followers feel the content was made especially for them — and that's what keeps them coming back for more.
+            </div>
+        </div>
+    </div>
+
+    <!-- Arabic Help Page -->
+    <div id="arabicHelp" class="container page arabic">
+        <div class="logo">
+            <div class="logo-text">ZM</div>
+        </div>
+        
+        <h1>ze mot<span class="dot">i</span><span class="people">o</span>ns</h1>
+        
+        <button class="back-btn" onclick="backToMenu()">
+            <span>رجوع ←</span>
+        </button>
+        
+        <div class="help-container">
+            <h2 class="help-title">كيف يمكنني مساعدتك؟ 🎬✨</h2>
+            
+            <div class="help-icons">
+                <div class="help-icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20M12,7A5,5 0 0,0 7,12A5,5 0 0,0 12,17A5,5 0 0,0 17,12A5,5 0 0,0 12,7Z"/>
+                    </svg>
+                    <span class="help-name">تحويل</span>
+                </div>
+                <div class="help-icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M12,3L1,9L12,15L21,10.09V17H23V9M5,13.18V17.18C5,17.18 8,16 8,17C8,18 5,18 5,18V21H19V17.18L12,21L5,17.18Z"/>
+                    </svg>
+                    <span class="help-name">تفاعل</span>
+                </div>
+                <div class="help-icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M12,15.5A3.5,3.5 0 0,1 8.5,12A3.5,3.5 0 0,1 12,8.5A3.5,3.5 0 0,1 15.5,12A3.5,3.5 0 0,1 12,15.5M19.43,12.97C19.47,12.65 19.5,12.33 19.5,12C19.5,11.67 19.47,11.34 19.43,11L21.54,9.37C21.73,9.22 21.78,8.95 21.66,8.73L19.66,5.27C19.54,5.05 19.27,4.96 19.05,5.05L16.56,6.05C16.04,5.66 15.5,5.32 14.87,5.07L14.5,2.42C14.46,2.18 14.25,2 14,2H10C9.75,2 9.54,2.18 9.5,2.42L9.13,5.07C8.5,5.32 7.96,5.66 7.44,6.05L4.95,5.05C4.73,4.96 4.46,5.05 4.34,5.27L2.34,8.73C2.22,8.95 2.27,9.22 2.46,9.37L4.57,11C4.53,11.34 4.5,11.67 4.5,12C4.5,12.33 4.53,12.65 4.57,12.97L2.46,14.63C2.27,14.78 2.22,15.05 2.34,15.27L4.34,18.73C4.46,18.95 4.73,19.03 4.95,18.95L7.44,17.94C7.96,18.34 8.5,18.68 9.13,18.93L9.5,21.58C9.54,21.82 9.75,22 10,22H14C14.25,22 14.46,21.82 14.5,21.58L14.87,18.93C15.5,18.68 16.04,18.34 16.56,17.94L19.05,18.95C19.27,19.03 19.54,18.95 19.66,18.73L21.66,15.27C21.78,15.05 21.73,14.78 21.54,14.63L19.43,12.97Z"/>
+                    </svg>
+                    <span class="help-name">تواصل</span>
+                </div>
+            </div>
+            
+            <p class="help-content">
+                محتواك يستحق أن يلمع.
+            </p>
+            
+            <div class="help-section arabic">
+                <p class="help-content">
+                    إذا كانت فيديوهاتك تبدو عادية أو مملة، فسوف أحولها إلى قصص نابضة بالحياة تجذب الانتباه من الثواني الأولى.
+                </p>
+            </div>
+            
+            <p class="help-content">
+                أضيف لمسات موسيقية وصوتية تجعل المشاهد يعيش مع الفيديو ويستمتع به حتى النهاية.
+            </p>
+            
+            <div class="help-section arabic">
+                <p class="help-content">
+                    سواء كنت صانع محتوى، صاحب مشروع، أو علامة تجارية، هدفي هو أن أجعل فيديوهاتك أقوى تأثيراً، أكثر انتشاراً، وتجعل جمهورك يعشق ما تقدمه.
+                </p>
+            </div>
+            
+            <div class="help-goal">
+                مع كل تعديل، أحرص أن يشعر متابعوك بأن المحتوى صُنع خصيصاً لهم… وهذا ما يجعلهم يعودون دائماً للمزيد.
+            </div>
+        </div>
+    </div>
+
+    <!-- English Contact Page -->
+    <div id="englishContact" class="container page">
+        <div class="logo">
+            <div class="logo-text">ZM</div>
+        </div>
+        
+        <h1>ze mot<span class="dot">i</span><span class="people">o</span>ns</h1>
+        
+        <button class="back-btn" onclick="backToMenu()">
+            <span>← Back</span>
+        </button>
+        
+        <div class="contact-container">
+            <a href="https://instagram.com/ze.motions" target="_blank" class="contact-btn instagram">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                </svg>
+                <span>Instagram</span>
+            </a>
+            
+            <a href="mailto:ze1motions@gmail.com" class="contact-btn gmail">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z"/>
+                </svg>
+                <span>Gmail</span>
+            </a>
+            
+            <a href="https://wa.me/212784181561" target="_blank" class="contact-btn whatsapp">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+                </svg>
+                <span>WhatsApp</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- Arabic Contact Page -->
+    <div id="arabicContact" class="container page arabic">
+        <div class="logo">
+            <div class="logo-text">ZM</div>
+        </div>
+        
+        <h1>ze mot<span class="dot">i</span><span class="people">o</span>ns</h1>
+        
+        <button class="back-btn" onclick="backToMenu()">
+            <span>رجوع ←</span>
+        </button>
+        
+        <div class="contact-container">
+            <a href="https://instagram.com/ze.motions" target="_blank" class="contact-btn instagram">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                </svg>
+                <span>إنستغرام</span>
+            </a>
+            
+            <a href="mailto:ze1motions@gmail.com" class="contact-btn gmail">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z"/>
+                </svg>
+                <span>جي ميل</span>
+            </a>
+            
+            <a href="https://wa.me/212784181561" target="_blank" class="contact-btn whatsapp">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+                </svg>
+                <span>واتساب</span>
+            </a>
+        </div>
+    </div>
+
+    <script>
+        let currentLanguage = '';
+
+        function selectLanguage(lang) {
+            currentLanguage = lang;
+            document.getElementById('welcomePage').classList.remove('active');
+            
+            setTimeout(() => {
+                if (lang === 'english') {
+                    document.getElementById('englishMenu').classList.add('active');
+                } else {
+                    document.getElementById('arabicMenu').classList.add('active');
+                }
+            }, 300);
+        }
+
+        function goBack() {
+            document.getElementById('englishMenu').classList.remove('active');
+            document.getElementById('arabicMenu').classList.remove('active');
+            document.getElementById('englishAbout').classList.remove('active');
+            document.getElementById('arabicAbout').classList.remove('active');
+            document.getElementById('englishHelp').classList.remove('active');
+            document.getElementById('arabicHelp').classList.remove('active');
+            document.getElementById('englishContact').classList.remove('active');
+            document.getElementById('arabicContact').classList.remove('active');
+            
+            setTimeout(() => {
+                document.getElementById('welcomePage').classList.add('active');
+                currentLanguage = '';
+            }, 300);
+        }
+
+        function showAbout(lang) {
+            document.getElementById('englishMenu').classList.remove('active');
+            document.getElementById('arabicMenu').classList.remove('active');
+            
+            setTimeout(() => {
+                if (lang === 'english') {
+                    document.getElementById('englishAbout').classList.add('active');
+                } else {
+                    document.getElementById('arabicAbout').classList.add('active');
+                }
+            }, 300);
+        }
+        
+        function showHelp(lang) {
+            document.getElementById('englishMenu').classList.remove('active');
+            document.getElementById('arabicMenu').classList.remove('active');
+            
+            setTimeout(() => {
+                if (lang === 'english') {
+                    document.getElementById('englishHelp').classList.add('active');
+                } else {
+                    document.getElementById('arabicHelp').classList.add('active');
+                }
+            }, 300);
+        }
+        
+        function showContact(lang) {
+            document.getElementById('englishMenu').classList.remove('active');
+            document.getElementById('arabicMenu').classList.remove('active');
+            
+            setTimeout(() => {
+                if (lang === 'english') {
+                    document.getElementById('englishContact').classList.add('active');
+                } else {
+                    document.getElementById('arabicContact').classList.add('active');
+                }
+            }, 300);
+        }
+        
+        function backToMenu() {
+            document.getElementById('englishAbout').classList.remove('active');
+            document.getElementById('arabicAbout').classList.remove('active');
+            document.getElementById('englishHelp').classList.remove('active');
+            document.getElementById('arabicHelp').classList.remove('active');
+            document.getElementById('englishContact').classList.remove('active');
+            document.getElementById('arabicContact').classList.remove('active');
+            
+            setTimeout(() => {
+                if (currentLanguage === 'english') {
+                    document.getElementById('englishMenu').classList.add('active');
+                } else {
+                    document.getElementById('arabicMenu').classList.add('active');
+                }
+            }, 300);
+        }
+    </script>
+</body>
+</html>
